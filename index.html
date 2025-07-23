@@ -18,7 +18,7 @@
       <hr />
       <h2>Mi Lista de Tareas</h2>
       <ul>
-        <li v-for="tarea in task" :key="tarea.id">
+        <li v-for="(tarea, index) in task" :key="index">
           {{ tarea.id }} - {{ tarea.tarea }} - <button @click="completada(tarea)">{{ tarea.completed? 'Completada' : 'Pendiente' }}</button>
         </li>
       </ul>
