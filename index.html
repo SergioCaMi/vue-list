@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.fluid.classless.min.css" />
+    <title>Vue - List Rendering</title>
+  </head>
+  <body>
+    <div id="app">
+      <h1>Añadir Nueva Tarea</h1>
+      <form @submit.prevent="onSubmit" action="">
+        <label for="task">Tarea:</label>
+        <input type="text" id="task" name="task" v-model="taskToDo" required />
+        <button type="submit">Añadir Tarea</button>
+      </form>
+      <h5>Creando tarea {{taskToDo}}</h5>
+      <hr />
+      <h2>Mi Lista de Tareas</h2>
+      <ul>
+        <li v-for="tarea in task" :key="tarea">
+          {{ tarea.id }} - {{ tarea.tarea }} - <button @onclic="completada(tarea)">{{ tarea.completed? 'Completada' : 'Pendiente' }}</button>
+        </li>
+      </ul>
+    </div>
+    <script type="module">
+      import { createApp, reactive, ref } from "https://unpkg.com/vue@3/dist/vue.esm-browser.js";
+      createApp({
+        setup() {
+          const completada = () => {
+            tarea.completada.value = !tarea.completada.value
+          }
+          const onSubmit = () => {
+            id.value = task.value.length + 1
+            task.value.push({
+              id: id.value,
+              tarea: taskToDo.value,
+              completada: false
+            });
+            taskToDo.value = "";
+          };
+          const id = ref(0);
+          const name = ref("");
+          const completed = ref(false);
+          const taskToDo = ref("");
+          const task = ref([]);
+          return {
+            id,
+            name,
+            completed,
+            task,
+            taskToDo,
+            onSubmit,
+          };
+        },
+      }).mount("#app");
+    </script>
+  </body>
+</html>
