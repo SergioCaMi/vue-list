@@ -18,8 +18,8 @@
       <hr />
       <h2>Mi Lista de Tareas</h2>
       <ul>
-        <li v-for="tarea in task" :key="tarea">
-          {{ tarea.id }} - {{ tarea.tarea }} - <button @onclic="completada(tarea)">{{ tarea.completed? 'Completada' : 'Pendiente' }}</button>
+        <li v-for="tarea in task" :key="tarea.id">
+          {{ tarea.id }} - {{ tarea.tarea }} - <button @click="completada(tarea)">{{ tarea.completed? 'Completada' : 'Pendiente' }}</button>
         </li>
       </ul>
     </div>
@@ -27,15 +27,15 @@
       import { createApp, reactive, ref } from "https://unpkg.com/vue@3/dist/vue.esm-browser.js";
       createApp({
         setup() {
-          const completada = () => {
-            tarea.completada.value = !tarea.completada.value
+          const completada = (tarea) => {
+            tarea.completed = !tarea.completed;
           }
           const onSubmit = () => {
             id.value = task.value.length + 1
             task.value.push({
               id: id.value,
               tarea: taskToDo.value,
-              completada: false
+              completed: false
             });
             taskToDo.value = "";
           };
@@ -51,6 +51,7 @@
             task,
             taskToDo,
             onSubmit,
+            completada
           };
         },
       }).mount("#app");
