@@ -31,10 +31,11 @@
             tarea.completed = !tarea.completed;
           }
           const eliminar = (tarea) => {
-            const index = task.value.indexOf(tarea);
-            if (index !== -1) {
-              task.value.splice(index, 1);
-            }
+            task.value = task.value.filter((t) => t.id !== tarea.id);
+            // const index = task.value.indexOf(tarea);
+            // if (index !== -1) {
+            //   task.value.splice(index, 1);
+            // }
           }
           const onSubmit = () => {
             id.value = task.value.length + 1
