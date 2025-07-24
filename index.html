@@ -19,7 +19,7 @@
       <h2>Mi Lista de Tareas</h2>
       <ul>
         <li v-for="(tarea, index) in task" :key="index">
-          {{ tarea.id }} - {{ tarea.tarea }} - <button @click="completada(tarea)">{{ tarea.completed? 'Completada' : 'Pendiente' }}</button>
+          {{ tarea.id }} - {{ tarea.tarea }} - <button @click="completada(tarea)">{{ tarea.completed? 'Completada' : 'Pendiente' }}</button> <button @click="eliminar(tarea)">Eliminar tarea</button>
         </li>
       </ul>
     </div>
@@ -29,6 +29,12 @@
         setup() {
           const completada = (tarea) => {
             tarea.completed = !tarea.completed;
+          }
+          const eliminar = (tarea) => {
+            const index = task.value.indexOf(tarea);
+            if (index !== -1) {
+              task.value.splice(index, 1);
+            }
           }
           const onSubmit = () => {
             id.value = task.value.length + 1
@@ -51,7 +57,8 @@
             task,
             taskToDo,
             onSubmit,
-            completada
+            completada,
+            eliminar
           };
         },
       }).mount("#app");
